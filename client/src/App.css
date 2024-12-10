@@ -40,3 +40,78 @@
 .read-the-docs {
   color: #888;
 }
+/* Estilo general */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; /* Fondo oscuro */
+  color: #fff; /* Texto en blanco */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura de la pantalla completa */
+}
+
+/* Contenedor principal */
+.container {
+  text-align: center;
+  background-color: #1e1e1e; /* Fondo más oscuro para el contenedor */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Título */
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+/* Inputs y selects */
+label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: block;
+  text-align: left;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #252525;
+  color: #fff;
+  font-size: 1rem;
+  resize: none;
+}
+
+/* Botón */
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Alineación del contenido */
+textarea {
+  height: 80px; /* Ajustar altura de las áreas de texto */
+}

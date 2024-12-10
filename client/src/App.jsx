@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './App.css';
 
 function App() {
   const [protocol, setProtocol] = useState('tcp'); // Selección del protocolo
@@ -24,29 +25,29 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="container">
       <h1>Cliente TCP/UDP</h1>
-      <label>
-        Protocolo:
-        <select value={protocol} onChange={(e) => setProtocol(e.target.value)}>
-          <option value="tcp">TCP</option>
-          <option value="udp">UDP</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        Mensaje:
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Escribe un mensaje"
-        />
-      </label>
-      <br />
+      <label>Protocolo</label>
+      <select value={protocol} onChange={(e) => setProtocol(e.target.value)}>
+        <option value="TCP">TCP</option>
+        <option value="UDP">UDP</option>
+      </select>
+
+      <label>Mensaje</label>
+      <textarea
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Escribe un mensaje"
+      ></textarea>
+
       <button onClick={handleSend}>Enviar</button>
-      <h2>Respuesta del servidor:</h2>
-      <p>{response}</p>
+
+      <label>Respuesta del Servidor</label>
+      <textarea
+        value={response}
+        readOnly
+        placeholder="Aquí se mostrará la respuesta del servidor"
+      ></textarea>
     </div>
   );
 }
