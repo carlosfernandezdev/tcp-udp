@@ -66,8 +66,12 @@ body {
 
 /* Título */
 h1 {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: bold;
+  font-family: "Jaro", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
