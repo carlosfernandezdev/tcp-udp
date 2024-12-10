@@ -6,31 +6,26 @@ function App() {
   const [response, setResponse] = useState(''); // Respuesta del servidor
 
   const handleSend = async () => {
-    // Cambiar URL según el protocolo seleccionado
-    const url = protocol === 'tcp' 
-      ? 'http://192.168.0.102:5000/send-message' // Endpoint para TCP
-      : 'http://192.168.0.102:5001/send-message'; // Endpoint para UDP (asegúrate de configurar este)
+    const url = protocol === 'tcp'
+      ? 'http://localhost:5000/send-message' // TCP
+      : 'http://localhost:5002/send-message'; // UDP
 
     try {
-      // Realiza la solicitud POST al servidor
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }), // Enviar mensaje como JSON
       });
-      
-      // Obtén la respuesta del servidor
       const data = await res.text();
-      setResponse(data); // Actualizar el estado con la respuesta
+      setResponse(data); // Mostrar la respuesta en pantalla
     } catch (error) {
-      setResponse('Error al conectar con el servidor: ' + error.message); // Manejar errores
+      setResponse('Error al conectar con el servidor: ' + error.message);
     }
   };
 
   return (
     <div style={{ padding: '20px' }}>
       <h1>Cliente TCP/UDP</h1>
-      {/* Selección del protocolo */}
       <label>
         Protocolo:
         <select value={protocol} onChange={(e) => setProtocol(e.target.value)}>
@@ -39,7 +34,6 @@ function App() {
         </select>
       </label>
       <br />
-      {/* Entrada del mensaje */}
       <label>
         Mensaje:
         <input
@@ -50,9 +44,7 @@ function App() {
         />
       </label>
       <br />
-      {/* Botón para enviar el mensaje */}
       <button onClick={handleSend}>Enviar</button>
-      {/* Mostrar la respuesta del servidor */}
       <h2>Respuesta del servidor:</h2>
       <p>{response}</p>
     </div>
