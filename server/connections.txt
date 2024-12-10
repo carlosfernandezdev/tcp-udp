@@ -7,3 +7,10 @@ Conexión TCP desde ::ffff:192.168.0.103:52267 - 2024-12-10T06:01:28.992Z
 Conexión TCP desde ::ffff:192.168.0.103:52299 - 2024-12-10T06:03:08.231Z
 Conexión TCP desde ::ffff:192.168.0.103:52300 - 2024-12-10T06:03:09.223Z
 Conexión TCP desde ::ffff:192.168.0.103:52301 - 2024-12-10T06:03:10.285Z
+Conexión TCP desde ::ffff:192.168.0.103:52421 - 2024-12-10T06:22:22.365Z
+Conexión TCP desde ::ffff:127.0.0.1:52409 - 2024-12-10T06:23:49.047Z
+Conexión TCP desde ::ffff:127.0.0.1:52414 - 2024-12-10T06:24:17.499Z
+Conexión TCP desde ::ffff:127.0.0.1:52434 - 2024-12-10T06:29:31.622Z
+Mensaje desde ::ffff:127.0.0.1:52434: hablame perro tetrahijueputa - 2024-12-10T06:29:31.624Z
+Conexión TCP desde ::ffff:127.0.0.1:52438 - 2024-12-10T06:30:08.350Z
+Mensaje desde ::ffff:127.0.0.1:52438: e perro tetrahijueputa - 2024-12-10T06:30:08.352Z

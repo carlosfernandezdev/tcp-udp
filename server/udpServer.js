@@ -9,13 +9,17 @@ server.on('message', (message, rinfo) => {
   const clientAddress = `${rinfo.address}:${rinfo.port}`;
   console.log(`Mensaje recibido de ${clientAddress}: ${message}`);
 
-  // Log de conexiones
-  const log = `Conexión UDP desde ${clientAddress} - ${new Date().toISOString()}\n`;
-  fs.appendFileSync('connections.txt', log);
+  // Guardar mensaje en connections.txt
+  const logMessage = `Mensaje desde ${clientAddress}: ${message} - ${new Date().toISOString()}\n`;
+  fs.appendFileSync('connections.txt', logMessage);
 
-  // Enviar respuesta
+  // Enviar respuesta al cliente
   const response = `Mensaje recibido: ${message}`;
-  server.send(response, rinfo.port, rinfo.address);
+  server.send(response, rinfo.port, rinfo.address, (err) => {
+    if (err) {
+      console.error(`Error al responder a ${clientAddress}: ${err.message}`);
+    }
+  });
 });
 
 // Inicia el servidor en el puerto 5000
