@@ -8,8 +8,8 @@ function App() {
   const handleSend = async () => {
     // Cambiar URL según el protocolo seleccionado
     const url = protocol === 'tcp' 
-      ? 'http://localhost:5000/send-message' // Endpoint para TCP
-      : 'http://localhost:5001/send-message'; // Endpoint para UDP (asegúrate de configurar este)
+      ? 'http://192.168.0.102:5000/send-message' // Endpoint para TCP
+      : 'http://192.168.0.102:5001/send-message'; // Endpoint para UDP (asegúrate de configurar este)
 
     try {
       // Realiza la solicitud POST al servidor
