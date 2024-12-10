@@ -1,22 +1,29 @@
 const dgram = require('dgram');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+
+const app = express();
+app.use(cors()); // Habilitar CORS
+app.use(express.json()); // Parsear JSON
 
 // Crear el servidor UDP
 const udpServer = dgram.createSocket('udp4');
 
 // Manejo de mensajes UDP entrantes
 udpServer.on('message', (message, rinfo) => {
-  const clientAddress = `${rinfo.address}:${rinfo.port}`;
-  console.log(`Mensaje recibido de ${clientAddress}: ${message}`);
+  const clientAddress = rinfo.address;
+  const protocol = 'UDP';
+  const receivedMessage = message.toString().trim();
 
-  // Guardar mensaje en connections.txt
-  const logMessage = `Mensaje desde ${clientAddress}: ${message} - ${new Date().toISOString()}\n`;
+  console.log(`Mensaje recibido de ${clientAddress}: ${receivedMessage}`);
+
+  // Guardar mensaje en el archivo connections.txt
+  const logMessage = `MENSAJE DESDE "${clientAddress}" POR "${protocol}": "${receivedMessage}" y ${new Date().toISOString()}\n`;
   fs.appendFileSync('connections.txt', logMessage);
 
   // Responder al cliente UDP
-  const response = `Mensaje recibido: ${message}`;
+  const response = `Mensaje recibido: ${receivedMessage}`;
   udpServer.send(response, rinfo.port, rinfo.address, (err) => {
     if (err) {
       console.error(`Error al responder a ${clientAddress}: ${err.message}`);
@@ -31,19 +38,14 @@ udpServer.bind(5001, () => {
   console.log('Servidor UDP escuchando en el puerto 5001');
 });
 
-// Crear el servidor HTTP con Express
-const app = express();
-app.use(cors()); // Habilitar CORS
-app.use(express.json()); // Parsear JSON
-
-// Endpoint para enviar mensajes a través de UDP
+// Endpoint HTTP para enviar mensajes al servidor UDP
 app.post('/send-message', (req, res) => {
   const { message } = req.body;
 
-  // Configurar detalles del cliente UDP
+  // Configurar cliente UDP
   const udpClient = dgram.createSocket('udp4');
   const udpPort = 5001; // Puerto del servidor UDP
-  const udpHost = '127.0.0.1'; // Dirección del servidor UDP (cambiar si necesario)
+  const udpHost = '127.0.0.1'; // Dirección del servidor UDP
 
   // Enviar mensaje al servidor UDP
   udpClient.send(message, udpPort, udpHost, (err) => {
@@ -60,7 +62,7 @@ app.post('/send-message', (req, res) => {
   udpClient.on('message', (response) => {
     console.log(`Respuesta del servidor UDP: ${response}`);
     res.send(`Respuesta del servidor UDP: ${response}`);
-    udpClient.close(); // Cerrar el cliente UDP después de recibir la respuesta
+    udpClient.close(); // Cierra el cliente UDP después de recibir la respuesta
   });
 
   udpClient.on('error', (err) => {
@@ -70,7 +72,7 @@ app.post('/send-message', (req, res) => {
   });
 });
 
-// Iniciar el servidor HTTP en el puerto 5002
+// Inicia el servidor HTTP en el puerto 5002
 app.listen(5002, () => {
   console.log('Servidor HTTP para UDP escuchando en el puerto 5002');
 });

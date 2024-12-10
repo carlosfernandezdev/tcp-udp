@@ -9,20 +9,17 @@ app.use(express.json()); // Parsear JSON
 
 // Configuración del servidor TCP
 const tcpServer = net.createServer((socket) => {
-  const clientAddress = `${socket.remoteAddress}:${socket.remotePort}`;
+  const clientAddress = socket.remoteAddress.replace(/^::ffff:/, ''); // Limpia la IP
+  const protocol = 'TCP';
   console.log(`Cliente conectado: ${clientAddress}`);
-
-  // Registrar la conexión inicial
-  const logConnection = `Conexión TCP desde ${clientAddress} - ${new Date().toISOString()}\n`;
-  fs.appendFileSync('connections.txt', logConnection);
 
   // Manejo de datos entrantes
   socket.on('data', (data) => {
     const message = data.toString().trim();
     console.log(`Mensaje recibido de ${clientAddress}: ${message}`);
 
-    // Guardar mensaje en connections.txt
-    const logMessage = `Mensaje desde ${clientAddress}: ${message} - ${new Date().toISOString()}\n`;
+    // Guardar mensaje en el archivo connections.txt
+    const logMessage = `MENSAJE DESDE "${clientAddress}" POR "${protocol}": "${message}" y ${new Date().toISOString()}\n`;
     fs.appendFileSync('connections.txt', logMessage);
 
     // Responder al cliente TCP
@@ -45,7 +42,7 @@ tcpServer.listen(4000, () => {
   console.log('Servidor TCP escuchando en el puerto 4000');
 });
 
-// Configuración del servidor HTTP
+// Endpoint HTTP para enviar mensajes al servidor TCP
 app.post('/send-message', (req, res) => {
   const { message } = req.body;
 
@@ -72,5 +69,5 @@ app.post('/send-message', (req, res) => {
 
 // Inicia el servidor HTTP en el puerto 5000
 app.listen(5000, () => {
-  console.log('Servidor HTTP escuchando en el puerto 5000');
+  console.log('Servidor HTTP para TCP escuchando en el puerto 5000');
 });
