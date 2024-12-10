@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "dgram": "^1.0.1",
     "fs": "^0.0.1-security",
     "net": "^1.0.2"
